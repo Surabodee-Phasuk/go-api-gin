@@ -1,1 +1,23 @@
-package goapiginlab
+package main
+
+import (
+	"github.com/gin-gonic/gin"
+	"example.com/student-api/configs"
+	"example.com/student-api/handlers"
+	"example.com/student-api/repositories"
+	"example.com/student-api/services"
+)
+
+func main() {
+	db := configs.InitDB()
+	repo := &repositories.StudentRepository{DB: db}
+	service := &services.StudentService{Repo: repo}
+	handler := &handlers.StudentHandler{Service: service}
+
+	r := gin.Default()
+	r.GET("/students", handler.GetStudents)
+	r.GET("/students/:id", handler.GetStudentByID)
+	r.POST("/students", handler.CreateStudent)
+
+	r.Run(":8080")
+}
