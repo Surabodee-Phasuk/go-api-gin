@@ -26,7 +26,7 @@
 3.  You will see registered routes (GET, POST, PUT, DELETE) in the terminal logs.
 
 ### 4. Testing the API
-You can test the endpoints using **Postman** or **Curl**:
+You can test the endpoints using **Postman** or **Curl**
 
 ## Available API endpoints
 
