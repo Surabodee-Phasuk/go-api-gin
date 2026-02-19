@@ -42,3 +42,45 @@ func (h *StudentHandler) CreateStudent(c *gin.Context) {
 	}
 	c.JSON(http.StatusCreated, student)
 }
+
+func (h *StudentHandler) DeleteStudent(c *gin.Context) {
+	id := c.Param("id")
+
+	// check students
+	if _, err := h.Service.GetStudentByID(id); err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Student not found"})
+		return
+	}
+
+	// found -> = delete
+	if err := h.Service.DeleteStudent(id); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.Status(http.StatusNoContent)
+}
+
+func (h *StudentHandler) UpdateStudent(c *gin.Context) {
+	id := c.Param("id")
+	var student models.Student
+
+	// JSON Binding
+	if err := c.ShouldBindJSON(&student); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	// Service update
+	if err := h.Service.UpdateStudent(id, student); err != nil {
+		if err.Error() == "sql: no rows in result set" {
+			c.JSON(http.StatusNotFound, gin.H{"error": "Student not found"})
+		} else {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		}
+		return
+	}
+
+	student.Id = id 
+	c.JSON(http.StatusOK, student)
+}
