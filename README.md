@@ -2,7 +2,7 @@
 ## 🚀 How to Run
 
 ### 1. Prerequisites
-* **Go**: Version 1.20 or later installed.
+* **Go**: Version 1.20 or later installed -> [Go Install](https://go.dev/doc/install)
 * **Git**: For repository management.
 
 ### 2. Setup & Installation
