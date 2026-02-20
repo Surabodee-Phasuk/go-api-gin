@@ -1,4 +1,4 @@
-# REST API Enhancement with Gin and SQLite
+# REST API Enhancement with Gin & SQLite
 ## 🚀 How to Run
 
 ### 1. Prerequisites
